@@ -9,13 +9,13 @@ class SearchBooks extends React.Component {
     };
   }
 
-  //Updates state after search term change
+  //Updates state after search term change && handles api call to search
   updateQuery = query => {
     this.setState({ query });
     this.props.search(query);
   };
 
-  //Handles the api call after query change
+  //Handles the api call after shelf change
   handleChange = (event, book) => {
     this.props.changeShelf(book, event.target.value);
   };
