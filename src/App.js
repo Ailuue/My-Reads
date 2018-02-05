@@ -52,7 +52,6 @@ class BooksApp extends React.Component {
       this.search(query);
     }, 500);
 
-    console.log('Hi');
     return (
       <div className="app">
         <Route

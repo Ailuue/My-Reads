@@ -5,8 +5,7 @@ class SearchBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: '',
-      searchBooks: []
+      query: ''
     };
   }
 
@@ -19,16 +18,17 @@ class SearchBooks extends React.Component {
   //Handles the api call after shelf change
   handleChange = (event, book) => {
     this.props.changeShelf(book, event.target.value);
+    // this.props.search(this.state.query);
   };
 
   render() {
     const { query } = this.state;
-    const { booksList, search } = this.props;
+    const { booksList } = this.props;
 
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <Link to="/" className="close-search" on>
+          <Link to="/" className="close-search">
             Go Back
           </Link>
           <div className="search-books-input-wrapper">
@@ -74,12 +74,11 @@ class SearchBooks extends React.Component {
                           />
                         )}
                         <div className="book-shelf-changer">
-                          {console.log(book)}
                           <select
                             value={book.shelf ? book.shelf : 'none'}
                             onChange={event => this.handleChange(event, book)}
                           >
-                            <option value="none" disabled>
+                            <option value="disabled" disabled>
                               Move to...
                             </option>
                             <option value="currentlyReading">

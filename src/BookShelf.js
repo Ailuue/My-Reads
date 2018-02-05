@@ -43,9 +43,11 @@ class BookShelf extends React.Component {
               </div>
               <div className="book-title">
                 <h4>{book.title}</h4>
-                {book.authors.map(name => {
-                  return <p key={name}>{name}</p>;
-                })}
+                {book.authors
+                  ? book.authors.map(name => {
+                      return <p key={name}>{name}</p>;
+                    })
+                  : ''}
               </div>
             </div>
           </li>
