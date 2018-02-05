@@ -64,9 +64,10 @@ class SearchBooks extends React.Component {
                           />
                         )}
                         <div className="book-shelf-changer">
-                          {console.log(book)}
                           <select
-                            value={book.shelf}
+                            value={
+                              this.props.getShelf(book.id) ? shelf : 'none'
+                            }
                             onChange={event => this.handleChange(event, book)}
                           >
                             <option value="none" disabled>

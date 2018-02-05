@@ -33,14 +33,15 @@ class BooksApp extends React.Component {
     }
   };
 
-  getShelf = bookId => {
-    return BooksAPI.get(bookId).then(book => book.shelf);
-  };
-
   render() {
+    let shelf = '';
     const bookSearch = _.debounce(query => {
       this.search(query);
     }, 500);
+
+    getShelf = bookId => {
+      BooksAPI.get(bookId).then(book => (shelf = book.shelf));
+    };
 
     console.log('Hi');
     return (
@@ -62,8 +63,9 @@ class BooksApp extends React.Component {
             <SearchBooks
               booksList={this.state.searchBooks}
               search={bookSearch}
+              shelf={shelf}
               changeShelf={(book, shelf) => this.changeShelf(book, shelf)}
-              getShelf={bookId => this.getShelf(bookId)}
+              getShelf={bookId => getShelf(bookId)}
             />
           )}
         />
