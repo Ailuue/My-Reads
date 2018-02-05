@@ -12,7 +12,6 @@ class SearchBooks extends React.Component {
   //Updates state after search term change && handles api call to search
   updateQuery = query => {
     this.setState({ query });
-    this.props.search(query);
   };
 
   //Handles the api call after shelf change
@@ -23,6 +22,10 @@ class SearchBooks extends React.Component {
   render() {
     const { query } = this.state;
     const { booksList } = this.props;
+
+    if (this.state.query !== '') {
+      this.props.search(query);
+    }
 
     return (
       <div className="search-books">
