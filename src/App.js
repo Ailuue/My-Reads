@@ -25,11 +25,21 @@ class BooksApp extends React.Component {
   };
 
   //Passed down function for making a search api call
+  //Thanks to Pablo on Slack for helping me with this function
   search = query => {
     if (query !== '') {
-      BooksAPI.search(query).then(searchBooks =>
-        this.setState({ searchBooks })
-      );
+      BooksAPI.search(query).then(booksList => {
+        if (booksList.error) {
+          this.setState({ searchBooks: [] });
+        } else {
+          this.setState({
+            searchBooks: booksList.map(item => {
+              let book = this.state.books.find(book => book.id === item.id);
+              return book || item;
+            })
+          });
+        }
+      });
     }
   };
 

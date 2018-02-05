@@ -5,7 +5,8 @@ class SearchBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: ''
+      query: '',
+      searchBooks: []
     };
   }
 
@@ -27,7 +28,7 @@ class SearchBooks extends React.Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <Link to="/" className="close-search">
+          <Link to="/" className="close-search" on>
             Go Back
           </Link>
           <div className="search-books-input-wrapper">
@@ -51,7 +52,7 @@ class SearchBooks extends React.Component {
                   <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
-                        {book.imageLinks.thumbnail && (
+                        {book.imageLinks ? (
                           <div
                             className="book-cover"
                             style={{
@@ -62,11 +63,20 @@ class SearchBooks extends React.Component {
                               })`
                             }}
                           />
+                        ) : (
+                          <div
+                            className="book-cover"
+                            style={{
+                              width: 128,
+                              height: 192,
+                              backgroundImage: `url(${'http://via.placeholder.com/128x193?text=No%20Cover'})`
+                            }}
+                          />
                         )}
                         <div className="book-shelf-changer">
                           {console.log(book)}
                           <select
-                            value={book.shelf}
+                            value={book.shelf ? book.shelf : 'none'}
                             onChange={event => this.handleChange(event, book)}
                           >
                             <option value="none" disabled>
