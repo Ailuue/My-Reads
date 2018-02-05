@@ -26,13 +26,23 @@ class BooksApp extends React.Component {
 
   //Passed down function for making a search api call
   search = query => {
-    BooksAPI.search(query).then(searchBooks => this.setState({ searchBooks }));
+    if (query !== '') {
+      BooksAPI.search(query).then(searchBooks =>
+        this.setState({ searchBooks })
+      );
+    }
+  };
+
+  getShelf = bookId => {
+    return BooksAPI.get(bookId).then(book => book.shelf);
   };
 
   render() {
     const bookSearch = _.debounce(query => {
       this.search(query);
     }, 500);
+
+    console.log('Hi');
     return (
       <div className="app">
         <Route
@@ -53,6 +63,7 @@ class BooksApp extends React.Component {
               booksList={this.state.searchBooks}
               search={bookSearch}
               changeShelf={(book, shelf) => this.changeShelf(book, shelf)}
+              getShelf={bookId => this.getShelf(bookId)}
             />
           )}
         />
