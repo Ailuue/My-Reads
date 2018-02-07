@@ -14,14 +14,12 @@ class BooksApp extends React.Component {
 
   //Allows app to load before making api calls
   componentDidMount() {
-    BooksAPI.getAll().then(books => this.setState({ books }));
+    this.handleChange();
   }
 
   //Passed down function for making an api call to change shelf
   changeShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(() =>
-      BooksAPI.getAll().then(books => this.setState({ books }))
-    );
+    BooksAPI.update(book, shelf).then(() => this.handleChange());
   };
 
   //Passed down function for making a search api call
@@ -49,6 +47,12 @@ class BooksApp extends React.Component {
     return BooksAPI.get(bookId).then(book => book.shelf);
   };
 
+  handleChange() {
+    BooksAPI.getAll()
+      .then(books => this.setState({ books }))
+      .then(() => this.search(this.search1.state.query));
+  }
+
   render() {
     const bookSearch = _.debounce(query => {
       this.search(query);
@@ -75,6 +79,9 @@ class BooksApp extends React.Component {
               search={bookSearch}
               changeShelf={(book, shelf) => this.changeShelf(book, shelf)}
               getShelf={bookId => this.getShelf(bookId)}
+              ref={search1 => {
+                this.search1 = search1;
+              }}
             />
           )}
         />
