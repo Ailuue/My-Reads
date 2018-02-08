@@ -50,7 +50,11 @@ class BooksApp extends React.Component {
   handleChange() {
     BooksAPI.getAll()
       .then(books => this.setState({ books }))
-      .then(() => this.search(this.search1.state.query));
+      .then(() => {
+        try {
+          this.search(this.search1.state.query);
+        } catch (e) {}
+      });
   }
 
   render() {
