@@ -47,6 +47,7 @@ class BooksApp extends React.Component {
     return BooksAPI.get(bookId).then(book => book.shelf);
   };
 
+  //Dirty change handler for updating state. Could definitely be cleaner...
   handleChange() {
     BooksAPI.getAll()
       .then(books => this.setState({ books }))
